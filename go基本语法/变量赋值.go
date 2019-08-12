@@ -1,0 +1,15 @@
+package main
+
+import "fmt"
+
+func main() {
+	/*变量交换*/
+	var a int = 100
+	var b int = 200
+	var t int
+
+	t = a
+	a = b
+	b = t
+	fmt.Print(a,b)
+}
