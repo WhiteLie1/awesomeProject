@@ -1,10 +1,5 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
-
 //func main() {
 //	/*变量交换*/
 //	var a int = 100
@@ -106,7 +101,7 @@ func init() {
 }
 `*/
 
-func main() {
+/*func main() { 进制的转换
 	// 输出各数值范围 调用其自带的函数参数说明
 	fmt.Println("int8 range:", math.MinInt8, math.MaxInt8)
 	fmt.Println("int16 range:", math.MinInt16, math.MaxInt16)
@@ -124,4 +119,229 @@ func main() {
 	var c float32 = math.Pi
 	// 转换为int类型, 浮点发生精度丢失
 	fmt.Println(int(c))
+}*/
+/*
+当一个指针被定义后没有分配到任何变量时，它的值为 nil。一个指针变量通常缩写为 ptr。
+每个变量在运行时都拥有一个地址，这个地址代表变量在内存中的位置。Go 语言中使用&作符放在变量前面对变量进行“取地址”操作。
+格式如下：
+ptr := &v    // v的类型为T
+其中 v 代表被取地址的变量，被取地址的 v 使用 ptr 变量进行接收，ptr 的类型就为*T，称做 T 的指针类型。*代表指针。
+func main()  {
+	var cat int = 1
+	var str string = "banana"
+	//fmt.Print("%p ,%p",&cat,&str)
+	fmt.Printf("%p %p", &cat, &str)
+提示：变量、指针和地址三者的关系是：每个变量都拥有地址，指针的值就是地址。
+}*/
+/*从指针获取只针对指向的值
+func main() {
+	// 准备一个字符串类型
+	var house = "Malibu Point 10880, 90265"
+	// 对字符串取地址, ptr类型为*string
+	ptr := &house
+	// 打印ptr的类型
+	fmt.Printf("ptr type: %T\n", ptr)
+	// 打印ptr的指针地址
+	fmt.Printf("address: %p\n", ptr)
+	// 对指针进行取值操作
+	value := *ptr
+	// 取值后的类型
+	fmt.Printf("value type: %T\n", value)
+	// 指针取值后就是指向变量的值
+	fmt.Printf("value: %s\n", value)
+}*/
+/*
+*操作符作为右值时，意义是取指针的值；作为左值时，也就是放在赋值操作符的左边时，表示 a 指向的变量。其实归纳起来，*操作符的根本意义就是操作指针指向的变量。当操作在右值时，就是取指向变量的值；当操作在左值时，就是将值设置给指向的变量。
+//使用指针修改值
+//交换函数
+func swap(a,b *int){
+	//取a指针的值，赋给临时变量t
+	t := *a
+	//取b指针的值，赋给a指针指向的变量
+	*a = *b
+	//将a指针的值赋给b指针指向的变量
+	*b = t
 }
+func main(){
+	//准备两个变量
+	x,y := 1,2
+	//交换变量值
+	swap(&x,&y)
+	//输出变量值
+	fmt.Println(x,y)
+}
+*/
+/*
+结果表明，交换是不成功的。上面代码中的 swap() 函数交换的是 a 和 b 的地址，在交换完毕后，a 和 b 的变量值确实被交换。但和 a、b 关联的两个变量并没有实际关联。这就像写有两座房子的卡片放在桌上一字摊开，交换两座房子的卡片后并不会对两座房子有任何影响。
+func swap(a,b *int){
+	b,a = a,b
+}
+func main()  {
+	x,y := 1,2
+	swap(&x,&y)
+	fmt.Println(x,y)
+}*/
+
+//import ( //导入系统包
+//	"flag"
+//	"fmt"
+//)
+////定义命令行参数
+//var mode = flag.String("mode","","process mode")
+//func main(){
+//	//解析命令行参数
+//	flag.Parse()
+//	//输出命令行参数
+//	fmt.Println(*mode)
+//}
+/*
+//逃逸分析
+import "fmt"
+//本函数测试入口参数和返回值的情况
+func dummy(b int) int {
+	//声明一个C赋值进入参数并返回
+	var c int
+	c = b
+	return c
+}
+//空函数，什么也不做
+func void(){
+
+}
+
+func main(){
+	//声明a变量并打印
+	var a int
+	//调用void()函数
+	void()
+	//打印a变量的值和dummy()函数返回
+	fmt.Println(a,dummy(0))
+}
+*/
+/*
+//2) 取地址发生逃逸
+import "fmt"
+//声明空结构体测试结构体逃逸情况
+type Data struct {
+
+}
+func dummy() *Data {
+	//实例化c为Data类型
+	var c Data
+	//返回函数局部变量地址
+	return &c
+}
+
+func main()  {
+	fmt.Println(dummy())
+}*/
+
+/*//编译器自动的选择在栈上还是在堆上分配局部变量的存储空间
+var global *int
+
+func f()  {
+	var x int
+	x = 1
+	global = &x
+
+}
+func g()  {
+	y := new(int)
+	*y = 1
+}*/
+/*import "fmt"
+type Weapon int
+const(
+	Arrow Weapon = iota //开始生成枚举值，默认为0
+	Shuriken
+	SniperRifle
+	Rifle
+	Blower
+)
+//输出所有枚举值
+fmt.Pritln(Arrow,Shuriken,Sniperifle,Rifle,Blower)
+//使用枚举类型并赋初始值
+var weapon Weapon = Blower
+fmt.Println(weapon)
+*/
+/*import "fmt"
+type Weapon int
+const (
+	Arrow Weapon = iota    // 开始生成枚举值, 默认为0
+	Shuriken
+	SniperRifle
+	Rifle
+	Blower
+)
+// 输出所有枚举值
+fmt.Println(Arrow, Shuriken, SniperRifle, Rifle, Blower)
+// 使用枚举类型并赋初值
+var weapon Weapon = Blower
+fmt.Println(weapon)
+*/
+/*import "fmt"
+// 声明芯片类型
+type ChipType int
+const (
+	None ChipType = iota
+	CPU    // 中央处理器
+	GPU    // 图形处理器
+)
+func (c ChipType) String() string {
+	switch c {
+	case None:
+		return "None"
+	case CPU:
+		return "CPU"
+	case GPU:
+		return "GPU"
+	}
+	return "N/A"
+}
+func main() {
+	// 输出CPU的值并以整型格式显示
+	fmt.Printf("%s %d", CPU, CPU)
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
