@@ -62,7 +62,7 @@ func main()  {
 //使用 make() 函数构造切片
 //如果需要动态地创建一个切片，可以使用 make() 内建函数，格式如下：
 //make( []T, size, cap )
-func main()  {
+/*func main()  {
 	a := make([]int ,2)
 	b := make([]int,2,10)
 	fmt.Println(a,b)
@@ -72,6 +72,16 @@ func main()  {
 	//a 和 b 均是预分配 2 个元素的切片，只是 b 的内部存储空间已经分配了 10 个，但实际使用了 2 个元素。
 	//
 	//容量不会影响当前的元素个数，因此 a 和 b 取 len 都是 2。
+}*/
+//Go语言遍历map（访问map中的每一个键值对）
+func main()  {
+	scene := make(map[string] int)
+	scene["route"] = 66
+	scene["brazil"] = 4
+	scene["china"] = 960
+	for k, v := range scene {
+		fmt.Println(k, v)
+	}
 }
 
 
